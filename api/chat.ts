@@ -1,5 +1,11 @@
-/// <reference types="node" />
 import { GoogleGenAI } from "@google/genai";
+
+// Forceer TypeScript om 'process' te herkennen, zelfs als de algemene project-configuratie op 'browser-only' staat.
+declare const process: {
+  env: {
+    [key: string]: string | undefined;
+  };
+};
 
 // We definiëren de kennisbasis hier direct om import-fouten op de Vercel server te voorkomen.
 // Serverless functions kunnen soms moeite hebben met het importeren van bestanden buiten de /api map.
@@ -142,14 +148,14 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
 export default async function handler(req, res) {
-  // We lezen de API Key hier pas uit om zeker te weten dat we de runtime environment variables hebben
-  const apiKey = process.env.API_KEY;
-
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   const { message } = req.body;
+
+  // Haal API key op
+  const apiKey = process.env.API_KEY;
 
   if (!apiKey) {
     console.error("API Key ontbreekt in process.env");
