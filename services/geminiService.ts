@@ -18,7 +18,6 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 
 export const getAImigoResponse = async (userMessage: string): Promise<string> => {
   // Methode 1: Probeer eerst client-side (werkt in preview met .env)
-  // We checken of de key bestaat en niet de standaard placeholder is.
   const apiKey = process.env.API_KEY;
   const isValidKey = apiKey && !apiKey.startsWith("PLAK_HIER");
   
@@ -37,12 +36,10 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
       return response.text || "Er is geen antwoord ontvangen.";
     } catch (error) {
       console.warn("Directe AI aanroep mislukt, probeer fallback naar API...", error);
-      // Als dit faalt, gaan we door naar Methode 2
     }
   }
 
   // Methode 2: Serverless Function (voor live omgeving/Vercel)
-  // Dit lost het probleem op dat de API key niet zichtbaar is in de browser op Vercel.
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
@@ -50,10 +47,18 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
       body: JSON.stringify({ message: userMessage })
     });
 
+    // Check eerst of het response type JSON is
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+       const textBody = await response.text();
+       console.error("Server reageerde met niet-JSON:", textBody);
+       throw new Error(`Server error (${response.status}): Onverwacht antwoordformaat.`);
+    }
+
     if (!response.ok) {
-       console.error("API Route fout:", response.status);
-       // We gooien een specifieke fout zodat we weten dat het aan de server ligt
-       throw new Error(`Server error: ${response.status}`);
+       const errorData = await response.json();
+       console.error("API Route fout details:", errorData);
+       throw new Error(`Server error: ${response.status} - ${errorData.error || 'Onbekende fout'}`);
     }
 
     const data = await response.json();
