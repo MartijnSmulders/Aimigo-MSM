@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
 
 // De API Key wordt hier opgehaald uit de veilige server-omgeving
-const apiKey = process.env.AIzaSyAfrh8G8SOZes5TZTeLBKTZckaeP_snO2o;
+const apiKey = process.env.API_KEY;
 
 // Hergebruik de systeeminstructie en kennisbasis hier op de server
 const SYSTEM_INSTRUCTION = `
