@@ -21,7 +21,7 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
   // Op Vercel is process.env.API_KEY vaak 'undefined' in de browser, waardoor dit wordt overgeslagen.
   const apiKey = process.env.API_KEY;
   
-  if (apiKey && !apiKey.includes('PLAK_HIER')) {
+  if (apiKey && !apiKey.includes(AIzaSyAfrh8G8SOZes5TZTeLBKTZckaeP_snO2o)) {
     try {
       const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
