@@ -53,7 +53,7 @@ export const KNOWLEDGE_BASE: KnowledgeItem[] = [
     "id": "contact_media",
     "categorie": "Contactpersonen",
     "onderwerp": "Fotografie, Apparatuur en Studio's",
-    "inhoud": "Voor vragen over fotografie, het lenen van apparatuur of het reserveren van de Podcast/Foto/Filmstudio kun je terecht bij Bart van den Boomen (bvdboomen@yonder.nl)."
+    "inhoud": "Voor vragen over fotografie, het lenen van apparatuur of het reserveren van de Podcast/Foto/Filmstudio kun je terecht bij Ben van den Boomen (bvdboomen@yonder.nl)."
   },
   {
     "id": "faciliteiten_water",
