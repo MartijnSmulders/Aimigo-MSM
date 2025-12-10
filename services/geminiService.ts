@@ -18,10 +18,11 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 
 export const getAImigoResponse = async (userMessage: string): Promise<string> => {
   // Methode 1: Probeer eerst client-side (werkt in preview met .env)
-  // Op Vercel is process.env.API_KEY vaak 'undefined' in de browser, waardoor dit wordt overgeslagen.
+  // We checken of de key bestaat en niet de standaard placeholder is.
   const apiKey = process.env.API_KEY;
+  const isValidKey = apiKey && !apiKey.startsWith("PLAK_HIER");
   
-  if (apiKey && !apiKey.includes(AIzaSyAfrh8G8SOZes5TZTeLBKTZckaeP_snO2o)) {
+  if (isValidKey) {
     try {
       const ai = new GoogleGenAI({ apiKey });
       const response = await ai.models.generateContent({
@@ -51,13 +52,14 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
 
     if (!response.ok) {
        console.error("API Route fout:", response.status);
+       // We gooien een specifieke fout zodat we weten dat het aan de server ligt
        throw new Error(`Server error: ${response.status}`);
     }
 
     const data = await response.json();
     return data.answer || "Geen antwoord van server.";
   } catch (error) {
-    console.error("Definitieve fout:", error);
-    return "Sorry, er is een technische storing. Controleer of de API Key correct is ingesteld in de Vercel Environment Variables.";
+    console.error("Definitieve fout bij ophalen antwoord:", error);
+    return "Sorry, er is een technische storing. Controleer of de API Key correct is ingesteld in de Vercel Environment Variables en of de dependencies zijn geïnstalleerd.";
   }
 };
