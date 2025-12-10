@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { GoogleGenAI } from "@google/genai";
 
 // We definiëren de kennisbasis hier direct om import-fouten op de Vercel server te voorkomen.
