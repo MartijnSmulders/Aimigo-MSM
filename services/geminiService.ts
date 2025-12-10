@@ -19,10 +19,10 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
 export const getAImigoResponse = async (userMessage: string): Promise<string> => {
-  // Check of de API key aanwezig is
-  if (!apiKey) {
-    console.error("API Key ontbreekt. Zorg dat process.env.API_KEY is ingesteld.");
-    return "Er is een configuratiefout (API Key ontbreekt). Controleer de instellingen.";
+  // Check of de API key aanwezig is en of de placeholder is vervangen
+  if (!apiKey || apiKey.includes("PLAK_HIER")) {
+    console.error("API Key ontbreekt of is niet ingesteld in het .env bestand.");
+    return "⚠️ Configuratie fout: De API-key is nog niet ingesteld. Open het bestand `.env` en plak daar je Google Gemini API-key.";
   }
 
   try {
@@ -47,6 +47,6 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
     
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Sorry, ik kon even geen verbinding maken. Probeer het later nog eens.";
+    return "Sorry, ik kon even geen verbinding maken met de AI. Controleer je internetverbinding en je API-key.";
   }
 };
