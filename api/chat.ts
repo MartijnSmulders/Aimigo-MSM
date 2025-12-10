@@ -125,8 +125,6 @@ const KNOWLEDGE_BASE = [
   }
 ];
 
-const apiKey = process.env.API_KEY;
-
 const SYSTEM_INSTRUCTION = `
 Je bent AImigo, de digitale studentassistent voor nieuwe studenten van de school Yonder (locatie Kasteeldreef).
 Jouw doel is om studenten snel en duidelijk te helpen met praktische vragen.
@@ -143,6 +141,9 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
 export default async function handler(req, res) {
+  // We lezen de API Key hier pas uit om zeker te weten dat we de runtime environment variables hebben
+  const apiKey = process.env.API_KEY;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
