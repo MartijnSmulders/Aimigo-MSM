@@ -1,8 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
 
-const apiKey = process.env.API_KEY;
-
 const SYSTEM_INSTRUCTION = `
 Je bent AImigo, de digitale studentassistent voor nieuwe studenten van de school Yonder (locatie Kasteeldreef).
 Jouw doel is om studenten snel en duidelijk te helpen met praktische vragen.
@@ -19,14 +17,8 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
 export const getAImigoResponse = async (userMessage: string): Promise<string> => {
-  // Check of de API key aanwezig is en of de placeholder is vervangen
-  if (!apiKey || apiKey.includes("PLAK_HIER")) {
-    console.error("API Key ontbreekt of is niet ingesteld in het .env bestand.");
-    return "⚠️ Configuratie fout: De API-key is nog niet ingesteld. Open het bestand `.env` en plak daar je Google Gemini API-key.";
-  }
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
@@ -47,6 +39,6 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
     
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "Sorry, ik kon even geen verbinding maken met de AI. Controleer je internetverbinding en je API-key.";
+    return "Sorry, ik kon even geen verbinding maken met de AI. Probeer het later opnieuw.";
   }
 };
