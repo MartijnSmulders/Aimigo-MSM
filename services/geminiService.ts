@@ -17,28 +17,47 @@ ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
 export const getAImigoResponse = async (userMessage: string): Promise<string> => {
-  try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: userMessage }]
+  // Methode 1: Probeer eerst client-side (werkt in preview met .env)
+  // Op Vercel is process.env.API_KEY vaak 'undefined' in de browser, waardoor dit wordt overgeslagen.
+  const apiKey = process.env.API_KEY;
+  
+  if (apiKey && !apiKey.includes('PLAK_HIER')) {
+    try {
+      const ai = new GoogleGenAI({ apiKey });
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+        config: {
+          systemInstruction: SYSTEM_INSTRUCTION,
+          temperature: 0.2,
+          maxOutputTokens: 500,
         }
-      ],
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.2,
-        maxOutputTokens: 500,
-      }
+      });
+      return response.text || "Er is geen antwoord ontvangen.";
+    } catch (error) {
+      console.warn("Directe AI aanroep mislukt, probeer fallback naar API...", error);
+      // Als dit faalt, gaan we door naar Methode 2
+    }
+  }
+
+  // Methode 2: Serverless Function (voor live omgeving/Vercel)
+  // Dit lost het probleem op dat de API key niet zichtbaar is in de browser op Vercel.
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
     });
 
-    return response.text || "Er is geen antwoord ontvangen.";
-    
+    if (!response.ok) {
+       console.error("API Route fout:", response.status);
+       throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.answer || "Geen antwoord van server.";
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "Sorry, ik kon even geen verbinding maken met de AI. Probeer het later opnieuw.";
+    console.error("Definitieve fout:", error);
+    return "Sorry, er is een technische storing. Controleer of de API Key correct is ingesteld in de Vercel Environment Variables.";
   }
 };
