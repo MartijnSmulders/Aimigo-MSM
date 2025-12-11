@@ -152,17 +152,22 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { message } = req.body;
-
-  // Haal API key op
-  const apiKey = process.env.API_KEY;
-
-  if (!apiKey) {
-    console.error("API Key ontbreekt in process.env");
-    return res.status(500).json({ error: 'Server misconfiguratie: API Key ontbreekt' });
-  }
-
   try {
+    const body = req.body || {};
+    const { message } = body;
+
+    if (!message) {
+      return res.status(400).json({ error: 'Bericht ontbreekt in request body' });
+    }
+
+    // Haal API key op
+    const apiKey = process.env.API_KEY;
+
+    if (!apiKey) {
+      console.error("API Key ontbreekt in process.env");
+      return res.status(500).json({ error: 'Server misconfiguratie: API Key ontbreekt in Vercel Environment Variables.' });
+    }
+
     const ai = new GoogleGenAI({ apiKey });
     
     const response = await ai.models.generateContent({
@@ -183,6 +188,7 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({ answer: response.text });
   } catch (error: any) {
     console.error("Gemini API Error in Serverless Function:", error);
-    return res.status(500).json({ error: 'Er ging iets mis bij het ophalen van het antwoord.', details: error.message });
+    // Geef de echte error message terug voor debugging
+    return res.status(500).json({ error: 'Er ging iets mis bij het ophalen van het antwoord.', details: error.message || 'Onbekende fout' });
   }
 }

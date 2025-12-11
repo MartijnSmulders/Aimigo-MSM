@@ -1,6 +1,12 @@
-/// <reference types="node" />
 import { GoogleGenAI } from "@google/genai";
 import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
+
+// Forceer TypeScript om 'process' te herkennen, zelfs als de algemene project-configuratie op 'browser-only' staat.
+declare const process: {
+  env: {
+    [key: string]: string | undefined;
+  };
+};
 
 const SYSTEM_INSTRUCTION = `
 Je bent AImigo, de digitale studentassistent voor nieuwe studenten van de school Yonder (locatie Kasteeldreef).
@@ -48,24 +54,30 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
       body: JSON.stringify({ message: userMessage })
     });
 
-    // Check eerst of het response type JSON is
+    // Check of de response daadwerkelijk JSON is (en geen HTML van een 404/500 pagina)
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
        const textBody = await response.text();
        console.error("Server reageerde met niet-JSON:", textBody);
-       throw new Error(`Server error (${response.status}): Onverwacht antwoordformaat.`);
-    }
-
-    if (!response.ok) {
-       const errorData = await response.json();
-       console.error("API Route fout details:", errorData);
-       throw new Error(`Server error: ${response.status} - ${errorData.error || 'Onbekende fout'}`);
+       // Als we HTML krijgen, is de route waarschijnlijk 404 of crashed
+       if (response.status === 404) {
+           throw new Error("API Route niet gevonden (/api/chat).");
+       }
+       throw new Error(`Onverwacht server antwoord (${response.status}).`);
     }
 
     const data = await response.json();
+
+    if (!response.ok) {
+       console.error("API Route fout details:", data);
+       // Gooi de specifieke foutmelding van de server door naar de catch block
+       throw new Error(data.error || data.details || `Server fout ${response.status}`);
+    }
+
     return data.answer || "Geen antwoord van server.";
-  } catch (error) {
+  } catch (error: any) {
     console.error("Definitieve fout bij ophalen antwoord:", error);
-    return "Sorry, er is een technische storing. Controleer of de API Key correct is ingesteld in de Vercel Environment Variables en of de dependencies zijn geïnstalleerd.";
+    // Toon de daadwerkelijke foutmelding aan de gebruiker voor betere debugging
+    return `Er is een technische fout opgetreden: ${error.message || JSON.stringify(error)}. Controleer de Vercel Logs.`;
   }
 };
