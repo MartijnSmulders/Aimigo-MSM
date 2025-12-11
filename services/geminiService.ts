@@ -70,6 +70,11 @@ export const getAImigoResponse = async (userMessage: string): Promise<string> =>
 
     if (!response.ok) {
        console.error("API Route fout details:", data);
+       
+       if (response.status === 403) {
+         throw new Error("API Key configuratie fout (Leaked/Blocked). Neem contact op met de beheerder.");
+       }
+
        // Gooi de specifieke foutmelding van de server door naar de catch block
        throw new Error(data.error || data.details || `Server fout ${response.status}`);
     }

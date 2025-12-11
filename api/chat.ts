@@ -188,6 +188,13 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({ answer: response.text });
   } catch (error: any) {
     console.error("Gemini API Error in Serverless Function:", error);
+    
+    // Specifieke check voor uitgelekte/geblokkeerde keys (Error 403)
+    if (error.status === 403 || (error.message && error.message.includes('leaked'))) {
+        console.error("CRITISCH: Je API Key is gemarkeerd als 'leaked' door Google en is geblokkeerd. Genereer een nieuwe key in Google AI Studio en update je Vercel Environment Variables.");
+        return res.status(403).json({ error: 'De ingestelde API Key is geblokkeerd door Google (Leaked Key). Check Vercel logs.' });
+    }
+
     // Geef de echte error message terug voor debugging
     return res.status(500).json({ error: 'Er ging iets mis bij het ophalen van het antwoord.', details: error.message || 'Onbekende fout' });
   }
