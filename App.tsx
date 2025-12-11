@@ -66,24 +66,30 @@ function App() {
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
       {/* Desktop Sidebar (Left side, centered content) */}
-      <aside className="hidden md:flex w-1/3 lg:w-1/4 flex-col items-center justify-center border-r border-slate-200 bg-white p-8 text-center z-10 relative">
-        <div className="mb-6">
-          <Logo size="lg" />
+      <aside className="hidden md:flex w-1/3 lg:w-1/4 flex-col items-center justify-between border-r border-slate-200 bg-white py-8 px-8 text-center z-10 relative">
+        <div className="flex flex-col items-center w-full">
+          <div className="mb-6">
+            <Logo size="lg" />
+          </div>
+          
+          <p className="text-slate-500 font-medium text-lg mb-8">
+            Yonder Student Assistent
+          </p>
+          <div className="bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
+             <span className="text-sm font-semibold text-blue-700">
+              📍 Locatie Kasteeldreef
+            </span>
+          </div>
         </div>
-        
-        <p className="text-slate-500 font-medium text-lg mb-8">
-          Yonder Student Assistent
-        </p>
-        <div className="bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
-           <span className="text-sm font-semibold text-blue-700">
-            📍 Locatie Kasteeldreef
-          </span>
+
+        <div className="text-xs text-slate-400">
+          &copy; {new Date().getFullYear()} Yonder
         </div>
       </aside>
 
       {/* Right Content Area (Chat) */}
       <div className="flex-1 flex flex-col h-full w-full relative">
-        <Navbar /> {/* Mobile Header only shows on small screens */}
+        <Navbar />
 
         <main className="flex-1 overflow-y-auto pt-4 px-4 pb-4 scroll-smooth">
           <div className="max-w-3xl mx-auto min-h-full flex flex-col justify-end">
