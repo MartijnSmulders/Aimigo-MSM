@@ -147,7 +147,7 @@ KENNISBASIS:
 ${JSON.stringify(KNOWLEDGE_BASE)}
 `;
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -181,7 +181,7 @@ export default async function handler(req, res) {
     });
 
     return res.status(200).json({ answer: response.text });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API Error in Serverless Function:", error);
     return res.status(500).json({ error: 'Er ging iets mis bij het ophalen van het antwoord.', details: error.message });
   }
