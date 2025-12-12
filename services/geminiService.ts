@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { KNOWLEDGE_BASE } from '../api/knowledgeBase';
+import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
 
 // Forceer TypeScript om 'process' te herkennen, zelfs als de algemene project-configuratie op 'browser-only' staat.
 declare const process: {
