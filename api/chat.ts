@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import { KNOWLEDGE_BASE } from '../data/knowledgeBase';
+import { KNOWLEDGE_BASE } from './knowledgeBase';
 
 // Forceer TypeScript om 'process' te herkennen.
 declare const process: {
