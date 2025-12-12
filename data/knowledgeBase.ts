@@ -154,6 +154,7 @@ export const KNOWLEDGE_BASE: KnowledgeItem[] = [
     "onderwerp": "BPV Bureau",
     "inhoud": "Voor specifieke vragen over contracten en procedures kun je terecht bij het BPV-bureau op school. Vraag je SLB'er naar de contactgegevens voor jouw opleiding."
   },
+  /* --- STAGEGIDS --- */
   {
     "id": "sg-001",
     "categorie": "Stage - Algemeen",
@@ -357,5 +358,331 @@ export const KNOWLEDGE_BASE: KnowledgeItem[] = [
     "categorie": "Stage - Getuigschrift",
     "onderwerp": "Voorbeeld getuigenis",
     "inhoud": "De gids bevat een voorbeeld getuigschrift waarin het bedrijf verklaart welke periode de student stage liep, welke werkzaamheden zijn verricht en hoe de student heeft gefunctioneerd. Dit document ondersteunt het aantonen van loopbaancompetenties zoals werknemer-gedrag en collegialiteit."
+  },
+  /* --- STUDENTENSTATUUT 2025 --- */
+  {
+    "id": "meta-001",
+    "categorie": "Studentenstatuut - Algemeen",
+    "onderwerp": "Documentinformatie",
+    "inhoud": "Studentenstatuut mbo-opleidingen Yonder. Versie 12 mei 2025. Ingangsdatum: 1 augustus 2025. Vastgesteld door College van Bestuur, instemming CSR op 22 mei 2025."
+  },
+  {
+    "id": "art-001",
+    "categorie": "Studentenstatuut - Algemeen",
+    "onderwerp": "Reikwijdte",
+    "inhoud": "Het studentenstatuut is bindend voor alle (aspirant) mbo-studenten van Yonder, inclusief entreeopleidingen, met uitzondering van derde leerweg studenten en NCVB Bedrijfsopleidingen. Het geldt binnen en buiten schoolgebouwen, tijdens BPV en bij digitale onderwijsactiviteiten."
+  },
+  {
+    "id": "art-002",
+    "categorie": "Studentenstatuut - Algemeen",
+    "onderwerp": "Onderwijsovereenkomst",
+    "inhoud": "Vanaf 1 augustus 2023 ontvangen studenten een inschrijvingsbeslissing in plaats van een onderwijsovereenkomst. Oude overeenkomsten blijven geldig tot einddatum. Bij conflicten prevaleert dit statuut."
+  },
+  {
+    "id": "art-003",
+    "categorie": "Studentenstatuut - Inschrijving",
+    "onderwerp": "Aanmelding en toelating",
+    "inhoud": "Na aanmelding ontvang je een inschrijvingsbeslissing. Je kunt bezwaar maken tegen afwijzing via hoofdstuk 9. Je hebt recht op studiekeuzeadvies bij aanmelden vóór 1 april. De toelatingsprocedure staat jaarlijks voor 1 februari online."
+  },
+  {
+    "id": "art-004",
+    "categorie": "Studentenstatuut - Kosten",
+    "onderwerp": "Les- en cursusgeld",
+    "inhoud": "Studenten van 18 jaar of ouder betalen wettelijk vastgesteld les- of cursusgeld. Teruggave en betalingsregelingen zijn vastgelegd in Schoolkostenbeleid."
+  },
+  {
+    "id": "art-005",
+    "categorie": "Studentenstatuut - Kosten",
+    "onderwerp": "Lesmateriaal",
+    "inhoud": "Studenten schaffen zelf lesmateriaal aan op basis van de gepubliceerde lijst op de website. Niet-gebruikte verplichte leermiddelen kunnen worden teruggekocht via meldpunt conform Schoolkostenbeleid."
+  },
+  {
+    "id": "art-006",
+    "categorie": "Studentenstatuut - Kosten",
+    "onderwerp": "MBO Studentenfonds",
+    "inhoud": "Studenten kunnen onder voorwaarden financiële ondersteuning aanvragen via het mbo-studentenfonds met een aanvraagformulier op de Yonder-website."
+  },
+  {
+    "id": "art-007",
+    "categorie": "Studentenstatuut - Ondersteuning",
+    "onderwerp": "Extra ondersteuning",
+    "inhoud": "Bij handicap of chronische ziekte worden vooraf schriftelijke afspraken gemaakt voor passend onderwijs. Evaluatie minimaal jaarlijks."
+  },
+  {
+    "id": "art-008",
+    "categorie": "Studentenstatuut - Ondersteuning",
+    "onderwerp": "Zwangerschap en ouderschap",
+    "inhoud": "Zwanger of studerende ouder? Je hebt recht op maatwerk en verlofregelingen volgens het protocol Zwangere Studenten en Studerende Ouders."
+  },
+  {
+    "id": "art-009",
+    "categorie": "Studentenstatuut - Ondersteuning",
+    "onderwerp": "Topsport",
+    "inhoud": "Studenten die topsport beoefenen kunnen maatwerkafspraken krijgen om sport en studie te combineren."
+  },
+  {
+    "id": "art-010",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "Inspanningsverplichtingen",
+    "inhoud": "Yonder zorgt voor redelijke mogelijkheden om het diploma te behalen en vervangt waar mogelijk uitgevallen lessen. Studenten moeten zich maximaal inspannen om studie af te ronden."
+  },
+  {
+    "id": "art-011",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "OER en examinering",
+    "inhoud": "De inhoud van opleiding en examens staat in de Onderwijs- en Examenregeling (OER) en het Examenreglement."
+  },
+  {
+    "id": "art-012",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "Cohortregeling",
+    "inhoud": "Je volgt diploma-eisen van je startcohort. Bij vertraging kan na toestemming overschrijving plaatsvinden naar ander cohort met nieuwe eisen."
+  },
+  {
+    "id": "art-013",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "BPV (Stage)",
+    "inhoud": "Beroepspraktijkvorming is verplicht. Afspraken staan in een praktijkovereenkomst. Yonder helpt bij het vinden van een leerbedrijf."
+  },
+  {
+    "id": "art-014",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "Studieloopbaanbegeleiding",
+    "inhoud": "Regelmatige gesprekken over voortgang. Bij problemen volgt extra begeleiding en zo nodig een verbeterplan."
+  },
+  {
+    "id": "art-015",
+    "categorie": "Studentenstatuut - Onderwijs",
+    "onderwerp": "Bindend studieadvies",
+    "inhoud": "In eerste studiejaar ontvang je BSA. Bij negatief advies volgt uitschrijving maar altijd eerst waarschuwing en verbeterplan. Beroep mogelijk."
+  },
+  {
+    "id": "art-016",
+    "categorie": "Studentenstatuut - Aanwezigheid",
+    "onderwerp": "Aanwezigheid",
+    "inhoud": "Bij alle lessen verplicht aanwezig, zowel fysiek als online. Afmeldingen verlopen via het studentenportaal."
+  },
+  {
+    "id": "art-017",
+    "categorie": "Studentenstatuut - Aanwezigheid",
+    "onderwerp": "Ziekmelding",
+    "inhoud": "Ziek melden op dezelfde dag via studentenportaal. Bij BPV ook bij leerbedrijf. Artsverklaring kan worden gevraagd."
+  },
+  {
+    "id": "art-018",
+    "categorie": "Studentenstatuut - Aanwezigheid",
+    "onderwerp": "Verlof",
+    "inhoud": "Verlof aanvragen bij studieloopbaanbegeleider, max 10 dagen per studiejaar. Schriftelijk bewijs vereist."
+  },
+  {
+    "id": "art-019",
+    "categorie": "Studentenstatuut - Aanwezigheid",
+    "onderwerp": "Ongeoorloofd verzuim",
+    "inhoud": "Ongeoorloofd verzuim kan leiden tot disciplinaire maatregelen en meldingen bij DUO of leerplicht."
+  },
+  {
+    "id": "art-020",
+    "categorie": "Studentenstatuut - Gedrag",
+    "onderwerp": "Gedragsregels",
+    "inhoud": "Respectvol gedrag verplicht. Geen intimidatie, geweld, discriminatie of diefstal. Rookvrije school."
+  },
+  {
+    "id": "art-021",
+    "categorie": "Studentenstatuut - Gedrag",
+    "onderwerp": "Ongewenst gedrag",
+    "inhoud": "Ongewenst gedrag is verboden. Vertrouwenspersoon beschikbaar. Klacht indienen mogelijk."
+  },
+  {
+    "id": "art-022",
+    "categorie": "Studentenstatuut - Gedrag",
+    "onderwerp": "Alcohol en drugs",
+    "inhoud": "Geen alcohol, drugs of wapens op school of activiteiten. Controles toegestaan."
+  },
+  {
+    "id": "art-023",
+    "categorie": "Studentenstatuut - Gedrag",
+    "onderwerp": "ICT-gedrag",
+    "inhoud": "Telefoons zijn uit tijdens lessen tenzij docent toestemming geeft. Camera kan verplicht zijn."
+  },
+  {
+    "id": "art-024",
+    "categorie": "Studentenstatuut - Gedrag",
+    "onderwerp": "Kleding",
+    "inhoud": "Geen gezichtsbedekkende kleding. Kleding moet veilig en passend zijn voor opleiding of bpv."
+  },
+  {
+    "id": "art-025",
+    "categorie": "Studentenstatuut - Maatregelen",
+    "onderwerp": "Disciplinaire maatregelen",
+    "inhoud": "Bij overtredingen volgen waarschuwing, schorsing of verwijdering. Maatregelen moeten proportioneel zijn."
+  },
+  {
+    "id": "art-026",
+    "categorie": "Studentenstatuut - Maatregelen",
+    "onderwerp": "Schorsing",
+    "inhoud": "Schorsing max 2 weken mogelijk. Beroep instellen binnen zes weken mogelijk."
+  },
+  {
+    "id": "art-027",
+    "categorie": "Studentenstatuut - Maatregelen",
+    "onderwerp": "Verwijdering",
+    "inhoud": "Student kan worden verwijderd bij ernstig of herhaald wangedrag of ongeschiktheid voor beroep. Procedure is wettelijk vastgelegd."
+  },
+  {
+    "id": "art-028",
+    "categorie": "Studentenstatuut - Maatregelen",
+    "onderwerp": "Uitschrijven",
+    "inhoud": "Uitschrijving kan door o.a. BSA, diplomering, VOG weigering of stoppen opleiding."
+  },
+  {
+    "id": "art-029",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Klachten en bezwaar",
+    "inhoud": "Klachten, bezwaar of beroep verlopen via het Meldpunt Yonder. Geschillenadviescommissie behandelt bezwaren."
+  },
+  {
+    "id": "art-030",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Cobex",
+    "inhoud": "De Commissie van Beroep voor de Examens behandelt examengeschillen en BSA-zaken."
+  },
+  {
+    "id": "art-031",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Studentenraad",
+    "inhoud": "De Centrale Studentenraad vertegenwoordigt Yonder-studenten richting bestuur."
+  },
+  {
+    "id": "art-032",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Aansprakelijkheid",
+    "inhoud": "Yonder is niet aansprakelijk voor schade of diefstal aan eigendommen van studenten."
+  },
+  {
+    "id": "art-033",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Privacy",
+    "inhoud": "Studentgegevens worden vastgelegd in EduArte volgens het privacyreglement."
+  },
+  {
+    "id": "art-034",
+    "categorie": "Studentenstatuut - Recht",
+    "onderwerp": "Slotbepaling",
+    "inhoud": "Het CvB stelt het statuut vast met instemming CSR. Het document is geldig vanaf 1 augustus 2025."
+  },
+  /* --- HANDLEIDING EXAMENMATRIJS --- */
+  {
+    "id": "em-001",
+    "categorie": "Examenmatrijs - Algemeen",
+    "onderwerp": "Doel van de examenmatrijs",
+    "inhoud": "De examenmatrijs wordt gebruikt om opdrachten uit het stagebedrijf officieel te laten meetellen voor school. Samen met de praktijkopleider kiest de student opdrachten die goed laten zien welke vaardigheden en competenties hij of zij beheerst. Voor eindexamenkandidaten tellen deze opdrachten mee voor het diploma; voor andere studenten tellen ze mee voor beoordeling. Voor elke gekozen opdracht moet een examenmatrijs worden ingevuld en goedgekeurd."
+  },
+  {
+    "id": "em-002",
+    "categorie": "Examenmatrijs - Bestandsnaam",
+    "onderwerp": "Naamgeving van examenmatrijzen",
+    "inhoud": "De documentnaam van een examenmatrijs volgt een vaste structuur: eigen_naam_klas_EM1. Bijvoorbeeld: 'Martijn Smulders_WEB4_EM1'. Lever je later een nieuwe examenmatrijs in voor een volgende opdracht, dan wordt dat EM2, EM3, enzovoort. Voor keuzedelen voeg je 'KD' toe in de naam. Voorbeeld: 'Martijn Smulders_WEB4_KD1_EM2'. Daarmee is in één oogopslag te zien of het om een examenopdracht of een keuzedeel gaat en om welke versie."
+  },
+  {
+    "id": "em-003",
+    "categorie": "Examenmatrijs - Keuzedelen",
+    "onderwerp": "Keuzedelen en examenmatrijs",
+    "inhoud": "Voor eindexamenkandidaten horen er naast schoolexamens ook keuzedelen bij de opleiding. Deze keuzedelen moeten in de stage worden uitgevoerd en apart worden vastgelegd. Je mag één en dezelfde opdracht niet dubbel gebruiken: dus niet tegelijk als schoolexamen én als keuzedeel. Voor een keuzedeel vul je een aparte examenmatrijs in en geef je in de bestandsnaam duidelijk aan dat het om een keuzedeel gaat (bijvoorbeeld KD1)."
+  },
+  {
+    "id": "em-004",
+    "categorie": "Examenmatrijs - Proces",
+    "onderwerp": "Workflow: invullen en goedkeuren",
+    "inhoud": "De student en praktijkopleider controleren samen de ingevulde examenmatrijs. Daarna stuurt de student de matrijs per mail naar de BPV-begeleider van school. De BPV-begeleider kijkt de matrijs na en geeft feedback als er iets niet klopt of onvolledig is. De student verwerkt de feedback en stuurt een nieuwe versie terug. Als de examenmatrijs inhoudelijk in orde is, keurt de BPV-begeleider deze goed en start voor eindexamenkandidaten het digitale ondertekenproces via Adobe Sign."
+  },
+  {
+    "id": "em-005",
+    "categorie": "Examenmatrijs - Proces",
+    "onderwerp": "Digitale ondertekening via Adobe Sign",
+    "inhoud": "Na goedkeuring van de examenmatrijs door de BPV-begeleider wordt voor eindexamenkandidaten het digitale ondertekenproces gestart via Adobe Sign. De student ontvangt een e-mail met het verzoek om de examenmatrijs digitaal te ondertekenen. Op het moment van ondertekenen staat het examen definitief vast. Daarna kan er niets inhoudelijk meer gewijzigd worden aan de examenopdracht binnen die examenmatrijs."
+  },
+  {
+    "id": "em-006",
+    "categorie": "Examenmatrijs - Structuur",
+    "onderwerp": "Algemene opbouw van de examenmatrijs",
+    "inhoud": "Een examenmatrijs kan grofweg in drie delen worden opgesplitst: (1) de kop met algemene gegevens zoals naam student, cohort-jaar, naam praktijkopleider en BPV-begeleider; (2) een middenstuk met de omschrijving van het examenproject en de producten die bij de klant worden opgeleverd; (3) een tabel onderaan de pagina met de te beoordelen werkprocessen en loopbaancompetenties (LB-competenties). Deze structuur is voor alle opleidingen vergelijkbaar, al heeft iedere opleiding een eigen versie van de matrijs."
+  },
+  {
+    "id": "em-007",
+    "categorie": "Examenmatrijs - Structuur",
+    "onderwerp": "Invullen van algemene gegevens",
+    "inhoud": "In het eerste deel van de examenmatrijs vult de student de algemene gegevens in. Dit spreekt grotendeels voor zich: naam van de student, opleiding, klas en cohort (het jaar waarin de student met de opleiding begonnen is). Vervolgens wordt de naam van de praktijkopleider ingevuld (begeleider vanuit het bedrijf) en de naam van de BPV-begeleider (begeleider vanuit school). Deze informatie maakt duidelijk wie verantwoordelijk zijn voor begeleiding en beoordeling."
+  },
+  {
+    "id": "em-008",
+    "categorie": "Examenmatrijs - Project",
+    "onderwerp": "Omschrijving van het examenproject",
+    "inhoud": "In het middenstuk van de examenmatrijs beschrijft de student kort maar concreet wat hij of zij gaat doen. Dit is de omschrijving van het examenproject: welke werkzaamheden worden uitgevoerd, voor welk type klant of bedrijf, en wat ongeveer de scope is. Voorbeelden zijn: een nieuwe website bouwen in HTML/CSS en JavaScript met specifieke pagina's, een redesign van een huisstijl inclusief onderzoek en moodboard, of het maken van een voxpop voor een lokale omroep met verwerking in een nieuwsitem. Het gaat hier om de kern van de opdracht zoals die bij de klant ligt."
+  },
+  {
+    "id": "em-009",
+    "categorie": "Examenmatrijs - Project",
+    "onderwerp": "Opleverproducten aan de klant",
+    "inhoud": "Naast de omschrijving van de werkzaamheden noteert de student welke concrete eindproducten er bij de klant worden opgeleverd. Dit zijn bijvoorbeeld een werkende website, een nieuwe huisstijl, een video-item of socialmedia-content. Schooldocumenten zoals projectverslagen, plannen van aanpak en reflecties horen niet in dit onderdeel; die zijn uitsluitend voor school en komen later in de documentatie en verantwoording terug."
+  },
+  {
+    "id": "em-010",
+    "categorie": "Examenmatrijs - Werkprocessen",
+    "onderwerp": "Kerntaken en werkprocessen in de tabel",
+    "inhoud": "Onderaan het voorblad van de examenmatrijs staat een tabel met werkprocessen. Deze zijn gekoppeld aan kerntaken (bijv. K1, K2, K3) binnen het basisdeel en profieldeel van de opleiding. Elk werkproces (W1, W2, W3, W4, etc.) beschrijft een specifiek onderdeel van het werk, zoals het bespreken van een opdracht, het voorbereiden van productie, uitvoeren van contentcreatie of publiceren. Per examenopdracht bepaalt de student samen met de praktijkopleider welke werkprocessen in die opdracht daadwerkelijk voorkomen en beoordeeld kunnen worden. Deze worden in de tabel aangevinkt."
+  },
+  {
+    "id": "em-011",
+    "categorie": "Examenmatrijs - Werkprocessen",
+    "onderwerp": "Kiezen van werkprocessen per opdracht",
+    "inhoud": "Voor elke examenopdracht bespreekt de student eerst de inhoud met de praktijkopleider. Daarna bekijkt de student vanaf pagina 4 van de examenmatrijs welke werkprocessen qua inhoud passen bij deze opdracht. In de uitleg bij de werkprocessen staat per werkproces omschreven wat er precies bedoeld wordt en welke activiteiten erbij horen. Op basis daarvan kiest de student die werkprocessen die in de gekozen opdracht daadwerkelijk voorkomen en relevant zijn om te laten beoordelen. In één opdracht kunnen meerdere werkprocessen worden 'afgetikt'."
+  },
+  {
+    "id": "em-012",
+    "categorie": "Examenmatrijs - Werkprocessen",
+    "onderwerp": "Uitleg werkprocessen en competenties",
+    "inhoud": "Vanaf pagina 4 van de examenmatrijs worden alle werkprocessen uitgebreider toegelicht. Bovenaan staat de titel van de kerntaak, bijvoorbeeld 'Basisdeel kerntaak 1 – voorbereiden opdracht en organiseren van werk', met daaronder de bijbehorende werkprocessen. Bij elk werkproces staan één of meerdere letters die verwijzen naar onderliggende competenties, zoals samenwerken, klantgerichtheid of instructies opvolgen. Een overzichtstabel met alle letters en bijbehorende competenties staat achter in de examenmatrijs."
+  },
+  {
+    "id": "em-013",
+    "categorie": "Examenmatrijs - Werkprocessen",
+    "onderwerp": "Prestatie-indicatoren per werkproces",
+    "inhoud": "Bij elk werkproces staan prestatie-indicatoren: concrete voorwaarden en gedragingen die horen bij dat werkproces. Voorbeeld bij het werkproces 'Opdracht bespreken met interne of externe opdrachtgever': de beginnend beroepsbeoefenaar inventariseert actief behoeften en wensen, vraagt naar meningen en ideeën, stelt vragen als iets niet duidelijk is en toont bereidheid om adviezen en instructies op te volgen. Deze prestatie-indicatoren geven precies aan wat de student moet laten zien in product en verslag om het werkproces te bewijzen."
+  },
+  {
+    "id": "em-014",
+    "categorie": "Examenmatrijs - Werkprocessen",
+    "onderwerp": "Overnemen van werkprocessen in de matrijs",
+    "inhoud": "Als een werkproces past bij de gekozen opdracht, kopieert de student de volledige beschrijving en prestatie-indicatoren uit de uitlegsectie (vanaf pagina 4) en plakt deze in het vak op pagina 2 van de examenmatrijs. Daar komen alle werkprocessen te staan die binnen deze examenopdracht beoordeeld worden. Zo weet de student vooraf welke voorwaarden moeten worden aangetoond en kan de BPV-begeleider direct zien welke onderdelen binnen dit examen getoetst worden."
+  },
+  {
+    "id": "em-015",
+    "categorie": "Examenmatrijs - Bewijslast",
+    "onderwerp": "Bewijslast en documentatie",
+    "inhoud": "De prestatie-indicatoren moeten aantoonbaar terugkomen in het examenproduct en vooral in de verantwoording in het projectverslag. Bewijslast kan bestaan uit gespreksverslagen, notulen, screenshots van e-mails met feedback, code-screenshots, foto’s van werk, etc. De student moet laten zien dat hij of zij daadwerkelijk volgens de gestelde voorwaarden heeft gewerkt. Dit is extra belangrijk omdat docenten op school de student niet in de dagelijkse praktijk zien; de beoordeling is gebaseerd op product, verslag en het beoordelingsgesprek met de praktijkopleider."
+  },
+  {
+    "id": "em-016",
+    "categorie": "Examenmatrijs - Bewijslast",
+    "onderwerp": "Rol van het projectverslag",
+    "inhoud": "In het projectverslag komt onder andere een kopje 'verantwoording'. Daarin beschrijft de student concreet hoe aan de gekozen werkprocessen is gewerkt en hoe de prestatie-indicatoren zijn ingevuld. Bijvoorbeeld: hoe informatie en wensen van de opdrachtgever zijn opgehaald, hoe die informatie is geanalyseerd, hoe de aanpak daarop is gebaseerd en hoe vakkennis is ingezet om advies te geven. Dit verslag is een belangrijk stuk bewijs richting school en vormt samen met het product en de examenmatrijs de basis voor de beoordeling."
+  },
+  {
+    "id": "em-017",
+    "categorie": "Examenmatrijs - Scope",
+    "onderwerp": "Realistisch aantal werkprocessen per examen",
+    "inhoud": "Het is nadrukkelijk niet de bedoeling om in één examenmatrijs alle mogelijke werkprocessen mee te nemen. In de praktijk zijn er maar weinig projecten waarin alle werkprocessen in één keer goed getoetst kunnen worden. Door werkprocessen te verdelen over meerdere opdrachten gedurende het jaar kan de student ook groei laten zien: een opdracht aan het begin van de stage is vaak minder complex dan een opdracht later in het jaar, als er meer kennis en ervaring is opgedaan."
+  },
+  {
+    "id": "em-018",
+    "categorie": "Examenmatrijs - Planning",
+    "onderwerp": "Gespreide beoordeling over meerdere projecten",
+    "inhoud": "Door meerdere projecten over de BPV-periode te plannen, kan de student werkprocessen en competenties gespreid laten beoordelen. Dit helpt om een geleidelijke opbouw in niveau te laten zien en voorkomt dat één examenproject te zwaar of onrealistisch wordt. Aan het eind van de stageperiode moeten voor eindexamenkandidaten alle verplichte werkprocessen beoordeeld zijn, maar ze hoeven niet allemaal in één examen terug te komen."
+  },
+  {
+    "id": "em-019",
+    "categorie": "Examenmatrijs - Afronding",
+    "onderwerp": "Laatste controle en aanlevering",
+    "inhoud": "Als de student alle relevante werkprocessen in de examenmatrijs heeft verwerkt, wordt de matrijs opgeslagen en nogmaals met de praktijkopleider doorgenomen. Na inhoudelijke goedkeuring door de praktijkopleider stuurt de student de examenmatrijs naar de BPV-begeleider van school. De BPV-begeleider controleert de matrijs, geeft zo nodig feedback of keurt hem goed. Bij eindexamenkandidaten start na goedkeuring het digitale ondertekenproces en vanaf dat moment ligt de examenopdracht definitief vast."
   }
 ];
