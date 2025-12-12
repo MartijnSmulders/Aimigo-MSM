@@ -140,7 +140,7 @@ const KNOWLEDGE_BASE = [
     "onderwerp": "BPV Bureau",
     "inhoud": "Voor specifieke vragen over contracten en procedures kun je terecht bij het BPV-bureau op school. Vraag je SLB'er naar de contactgegevens voor jouw opleiding."
   },
-  /* --- STAGEGIDS --- */
+  /* --- NIEUWE INFORMATIE UIT STAGEGIDS --- */
   {
     "id": "sg-001",
     "categorie": "Stage - Algemeen",
@@ -725,14 +725,15 @@ export default async function handler(req: any, res: any) {
 
     const ai = new GoogleGenAI({ apiKey });
     
-    // RETRY LOGICA VOOR 503 ERRORS
+    // RETRY LOGICA VOOR 503 ERRORS (Service Unavailable)
     const MAX_RETRIES = 3;
     let lastError: any = null;
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         try {
             const response = await ai.models.generateContent({
-              model: 'gemini-2.5-flash',
+              // We gebruiken 'gemini-flash-lite-latest' (Flash Lite) om de strenge limieten van de preview-modellen te omzeilen.
+              model: 'gemini-flash-lite-latest',
               contents: [
                 {
                   role: 'user',
@@ -761,13 +762,22 @@ export default async function handler(req: any, res: any) {
                     await new Promise(resolve => setTimeout(resolve, waitTime));
                     continue; // Probeer opnieuw
                 }
-            } else if (error.status === 403 || (error.message && error.message.includes('leaked'))) {
+            } 
+            // Check op 429 Rate Limit (Quota Exceeded)
+            else if (error.status === 429 || (error.body && error.body.error && error.body.error.code === 429)) {
+                // Bij rate limit heeft retry binnen enkele seconden geen zin
+                console.error("CRITISCH: API Quota bereikt (429).");
+                return res.status(429).json({ 
+                    error: 'Het dagelijkse limiet van de gratis AI-versie is bereikt. Probeer het later opnieuw of vraag de beheerder om een betaalde key.' 
+                });
+            }
+            else if (error.status === 403 || (error.message && error.message.includes('leaked'))) {
                 // Bij een leaked key heeft retry geen zin
                 console.error("CRITISCH: API Key is geblokkeerd.");
                 return res.status(403).json({ error: 'De ingestelde API Key is geblokkeerd door Google (Leaked Key).' });
             }
             
-            // Als het geen 503 is, of we zijn door de retries heen, gooi de error.
+            // Als het geen retry-fout is, stop de loop
             break; 
         }
     }
