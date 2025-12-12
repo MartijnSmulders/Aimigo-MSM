@@ -1,7 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
 // We definiëren de data lokaal in dit bestand om 'ERR_MODULE_NOT_FOUND' te voorkomen bij serverless deployment.
-// Dit maakt de functie self-contained.
 const KNOWLEDGE_BASE = [
   {
     "id": "locatie_welkom",
@@ -681,19 +680,26 @@ declare const process: {
   };
 };
 
+// Optimalisatie: Converteer KNOWLEDGE_BASE naar een platte tekststring ipv JSON.
+// Dit bespaart tokens en maakt het makkelijker voor het model om te verwerken.
+const KNOWLEDGE_TEXT = KNOWLEDGE_BASE.map(item => `
+[${item.categorie}] ${item.onderwerp}
+${item.inhoud}
+`).join('\n-------------------\n');
+
 const SYSTEM_INSTRUCTION = `
 Je bent AImigo, de digitale studentassistent voor nieuwe studenten van de school Yonder (locatie Kasteeldreef).
 Jouw doel is om studenten snel en duidelijk te helpen met praktische vragen.
 
 VOLG DEZE REGELS STRIKT:
-1. Brongebruik: Beantwoord vragen UITSLUITEND op basis van de meegeleverde KENNISBASIS.
-2. Niet schoolgerelateerd: Als de vraag over algemene zaken gaat die NIETS met school te maken hebben (bijv. sportuitslagen, weer, nieuws, beroemdheden), antwoord dan EXACT met: "Sorry, daar moet je andere bronnen voor raadplegen. Ik kan je niet helpen omdat ik daar geen informatie over heb."
-3. Niet geweten (Schoolgerelateerd): Als de vraag WEL over school gaat, maar het antwoord niet in de kennisbasis staat, antwoord dan EXACT met: "Dat weet ik helaas niet precies. Ik raad je aan contact op te nemen met je Studieloopbaanbegeleider (SLB'er)."
-4. Emotionele/Zorgvragen: Als een student aangeeft ergens mee te zitten, iets vervelends te hebben meegemaakt, een zorgvraag heeft, of emotioneel klinkt, negeer de kennisbasis en antwoord ALTIJD direct en empathisch met: "Wat vervelend dat je hiermee zit. Ik raad je aan om contact op te nemen met Elise Sleutjes (de vertrouwenspersoon) of je SLB'er. Zij kunnen je hier beter bij helpen."
+1. Brongebruik: Beantwoord vragen UITSLUITEND op basis van de meegeleverde KENNISBASIS hieronder.
+2. Niet schoolgerelateerd: Als de vraag over algemene zaken gaat die NIETS met school te maken hebben, antwoord: "Sorry, daar moet je andere bronnen voor raadplegen. Ik kan je niet helpen omdat ik daar geen informatie over heb."
+3. Niet geweten (Schoolgerelateerd): Als de vraag WEL over school gaat, maar het antwoord staat niet in de kennisbasis, antwoord: "Dat weet ik helaas niet precies. Ik raad je aan contact op te nemen met je Studieloopbaanbegeleider (SLB'er)."
+4. Emotionele/Zorgvragen: Bij zorgen of emotionele vragen, verwijs ALTIJD direct en empathisch naar Elise Sleutjes (vertrouwenspersoon) of de SLB'er.
 5. Toon: Wees behulpzaam, duidelijk en gebruik "je/jij". Houd antwoorden kort en scanbaar.
 
 KENNISBASIS:
-${JSON.stringify(KNOWLEDGE_BASE)}
+${KNOWLEDGE_TEXT}
 `;
 
 export default async function handler(req: any, res: any) {
@@ -719,30 +725,61 @@ export default async function handler(req: any, res: any) {
 
     const ai = new GoogleGenAI({ apiKey });
     
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: message }]
-        }
-      ],
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.2,
-        maxOutputTokens: 500,
-      }
-    });
-
-    return res.status(200).json({ answer: response.text });
-  } catch (error: any) {
-    console.error("Gemini API Error in Serverless Function:", error);
+    // RETRY LOGICA VOOR 503 ERRORS
+    const MAX_RETRIES = 3;
+    let lastError: any = null;
     
-    if (error.status === 403 || (error.message && error.message.includes('leaked'))) {
-        console.error("CRITISCH: Je API Key is gemarkeerd als 'leaked' door Google en is geblokkeerd.");
-        return res.status(403).json({ error: 'De ingestelde API Key is geblokkeerd door Google (Leaked Key). Check Vercel logs.' });
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            const response = await ai.models.generateContent({
+              model: 'gemini-2.5-flash',
+              contents: [
+                {
+                  role: 'user',
+                  parts: [{ text: message }]
+                }
+              ],
+              config: {
+                systemInstruction: SYSTEM_INSTRUCTION,
+                temperature: 0.2,
+                maxOutputTokens: 500,
+              }
+            });
+
+            return res.status(200).json({ answer: response.text });
+
+        } catch (error: any) {
+            console.error(`Gemini API poging ${attempt} mislukt:`, error.message);
+            lastError = error;
+
+            // Check specifiek op 503 Service Unavailable (Model Overloaded)
+            if (error.status === 503) {
+                if (attempt < MAX_RETRIES) {
+                    // Wacht even voor de volgende poging (Exponential backoff: 1s, 2s)
+                    const waitTime = attempt * 1000;
+                    console.log(`Wachten voor ${waitTime}ms voor retry...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    continue; // Probeer opnieuw
+                }
+            } else if (error.status === 403 || (error.message && error.message.includes('leaked'))) {
+                // Bij een leaked key heeft retry geen zin
+                console.error("CRITISCH: API Key is geblokkeerd.");
+                return res.status(403).json({ error: 'De ingestelde API Key is geblokkeerd door Google (Leaked Key).' });
+            }
+            
+            // Als het geen 503 is, of we zijn door de retries heen, gooi de error.
+            break; 
+        }
     }
 
+    // Als we hier komen is het na alle retries nog steeds mislukt
+    return res.status(503).json({ 
+        error: 'De AI-service is momenteel overbelast. Probeer het over een minuutje nog eens.', 
+        details: lastError?.message 
+    });
+
+  } catch (error: any) {
+    console.error("Onverwachte fout in handler:", error);
     return res.status(500).json({ error: 'Er ging iets mis bij het ophalen van het antwoord.', details: error.message || 'Onbekende fout' });
   }
 }
